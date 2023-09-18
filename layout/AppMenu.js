@@ -15,7 +15,14 @@ const AppMenu = () => {
                 /** Menu */
                 { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
                 { label: 'CODEBASE 1', icon: 'pi pi-fw pi-star', to: '/_codebase/codebase1' },
-                { label: 'GUDANG', icon: 'pi pi-fw pi-star', to: '/master/stok/gudang' }
+                { label: 'GUDANG', icon: 'pi pi-fw pi-star', to: '/master/stok/gudang' },
+                { label: 'Cetak', icon: 'pi pi-fw pi-star', to: '/cetak' },
+                { label: 'Cetak Slip', icon: 'pi pi-fw pi-print', to: '/cetakslip' },
+                { label: 'Cetak Slip Vers2', icon: 'pi pi-fw pi-print', to: '/cetakslip-vers2' },
+                { label: 'Cetak PDF API', icon: 'pi pi-fw pi-ban', to: '/cetak-pdf' },
+                { label: 'Cetak PDF vers2', icon: 'pi pi-fw pi-file-pdf', to: '/coba' },
+                { label: 'Cetak PDFjs vers2', icon: 'pi pi-fw pi-file-pdf', to: '/cobapdfjs22' },
+                { label: 'Coba pdfjs', icon: 'pi pi-fw pi-file-pdf', to: '/cobapdfjs' }
             ]
         },
     ];
