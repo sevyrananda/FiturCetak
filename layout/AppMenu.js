@@ -21,7 +21,7 @@ const AppMenu = () => {
                 { label: 'Cetak Slip Vers2', icon: 'pi pi-fw pi-print', to: '/cetakslip-vers2' },
                 { label: 'Cetak PDF API', icon: 'pi pi-fw pi-ban', to: '/cetak-pdf' },
                 { label: 'Cetak PDF vers2', icon: 'pi pi-fw pi-file-pdf', to: '/coba' },
-                { label: 'Cetak PDFjs vers2', icon: 'pi pi-fw pi-file-pdf', to: '/cobapdfjs22' },
+                { label: 'Cetak PDFjs vers2(fix)', icon: 'pi pi-fw pi-file-pdf', to: '/cobapdfjs22' },
                 { label: 'Coba pdfjs', icon: 'pi pi-fw pi-file-pdf', to: '/cobapdfjs' }
             ]
         },
