@@ -27,6 +27,8 @@ export default function Index() {
 
     const [marginTop, setMarginTop] = useState(''); // Pengaturan margin atas
     const [marginLeft, setMarginLeft] = useState(''); // Pengaturan margin kiri
+    const [marginRight, setMarginRight] = useState(''); // Pengaturan margin kanan
+    const [marginBottom, setMarginBottom] = useState(''); // Pengaturan margin bawah
     const [tableWidth, setTableWidth] = useState(''); // Lebar tabel
 
     const [pdfUrl, setPdfUrl] = useState(''); // URL PDF untuk ditampilkan di dialog
@@ -96,6 +98,30 @@ export default function Index() {
 
                             <div className="p-col-12 p-md-4">
                                 <div className="p-field">
+                                    <label htmlFor="marginBottom" className="p-d-block">
+                                        Margin Bawah:
+                                    </label>
+                                    <div className="p-inputgroup">
+                                        <InputText id="marginBottom" value={marginBottom} onChange={(e) => setMarginBottom(e.target.value)} type="number" min="0" step="0.1" />
+                                        <span className="p-inputgroup-addon">mm</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="p-col-12 p-md-4">
+                                <div className="p-field">
+                                    <label htmlFor="marginRight" className="p-d-block">
+                                        Margin Kanan:
+                                    </label>
+                                    <div className="p-inputgroup">
+                                        <InputText id="marginRight" value={marginRight} onChange={(e) => setMarginRight(e.target.value)} type="number" min="0" step="0.1" />
+                                        <span className="p-inputgroup-addon">mm</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="p-col-12 p-md-4">
+                                <div className="p-field">
                                     <label htmlFor="marginLeft" className="p-d-block">
                                         Margin Kiri:
                                     </label>
@@ -154,7 +180,7 @@ export default function Index() {
 
     const handlePreview = () => {
         if (selectedData.length > 0) {
-            if (marginLeft === '' || marginTop === '') {
+            if (marginLeft === '' || marginTop === '' || marginRight === '' || marginBottom === '') {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
@@ -162,45 +188,48 @@ export default function Index() {
                 });
                 return;
             }
-
+    
             let format = 'a4'; // Format default (A4)
             if (selectedPaperSize === 'Letter') {
                 format = 'letter';
             } else if (selectedPaperSize === 'Legal') {
                 format = 'legal';
             }
-
+    
             const doc = new jsPDF({
                 orientation,
                 unit: 'mm',
                 format,
                 putOnlyUsedFonts: true
             });
-
+    
             const marginLeftInMm = parseFloat(marginLeft);
             const marginTopInMm = parseFloat(marginTop);
+            const marginRightInMm = parseFloat(marginRight); // Tambahkan margin kanan
+            const marginBottomInMm = parseFloat(marginBottom); // Tambahkan margin bawah
             const tableWidthInMm = parseFloat(tableWidth);
-
+    
             doc.setProperties({
                 marginLeft: marginLeftInMm,
-                marginRight: 0,
+                marginRight: marginRightInMm, // Set margin kanan
                 marginTop: marginTopInMm,
+                marginBottom: marginBottomInMm, // Set margin bawah
                 landscape: orientation === 'landscape'
             });
-
+    
             const tableData = selectedData.map((rowData) => [rowData.NoTransaksi, rowData.Tgl, rowData.Kode, rowData.Debet, rowData.Kredit, rowData.Saldo, rowData.Keterangan]);
-
+    
             doc.autoTable({
                 body: tableData,
                 startY: undefined,
                 theme: 'grid',
-                margin: { top: marginTopInMm, left: marginLeftInMm },
+                margin: { top: marginTopInMm, left: marginLeftInMm, right: marginRightInMm }, // Margin kanan dan bawah
                 tableWidth: tableWidthInMm,
                 styles: { lineWidth: 0 }
             });
-
+    
             const pdfDataUrl = doc.output('datauristring');
-
+    
             // Atur pdfUrl sesuai dengan data yang dibuat
             setPdfUrl(pdfDataUrl);
             setPdfPreviewOpen(true); // Buka dialog setelah pdfUrl diatur
@@ -212,6 +241,7 @@ export default function Index() {
             });
         }
     };
+    
 
     return (
         <div className="grid crud-demo">
