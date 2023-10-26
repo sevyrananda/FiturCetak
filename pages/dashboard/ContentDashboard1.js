@@ -6,19 +6,20 @@ function ContentDashboard1() {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    flexWrap: 'wrap', // Allow content to wrap to the next row
   };
 
   const flexItemStyle = {
     width: '100%',
-    // height: '40%',
+    flex: '1', // Allow items to grow and shrink equally
     backgroundColor: '#fff',
     color: 'black',
-    textAlign: 'center',
+    textAlign: 'left',
     borderRadius: '8px',
-    display: 'flex', // Tambah display: flex
-    flexDirection: 'row', // Tambah flex-direction: row
+    display: 'flex',
+    flexDirection: 'row',
     alignItems: 'center',
-    padding: '25px', // Tambah padding
+    padding: '25px',
     margin: '10px',
   };
 
@@ -30,32 +31,32 @@ function ContentDashboard1() {
 
   return (
     <div>
-      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
+      <div style={ContentDashboard1Style}>
         <div style={flexItemStyle}>
-          <div style={{ width: '50px', height: '50px', borderRadius: '18px', backgroundColor: '#E7F2F7', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '10px', color:'#0F7AAE', }}>
-            <i className="pi pi-fw pi-home"></i>
+          <div style={{ width: '50px', height: '50px', borderRadius: '18px', backgroundColor: '#E7F2F7', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '10px', color: '#0F7AAE' }}>
+            <i className="pi pi-fw pi-dollar"></i>
           </div>
-          <div style={{ flexDirection:'row' }}>
+          <div style={{ flexDirection: 'row' }}>
             Keuntungan
-            <div style={priceStyle}>Rp. 5000</div>
+            <div style={priceStyle}>Rp. 5000,-</div>
           </div>
         </div>
         <div style={flexItemStyle}>
-        <div style={{ width: '50px', height: '50px', borderRadius: '18px', backgroundColor: '#EAF9F1', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '10px', color:'#20BF6B', }}>
-            <i className="pi pi-fw pi-home"></i>
+          <div style={{ width: '50px', height: '50px', borderRadius: '18px', backgroundColor: '#EAF9F1', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '10px', color: '#20BF6B' }}>
+            <i className="pi pi-fw pi-arrow-up-right"></i>
           </div>
-          <div style={{ flexDirection:'row' }}>
+          <div style={{ flexDirection: 'row' }}>
             Penerimaan
-            <div style={priceStyle}>Rp. 5000</div>
+            <div style={priceStyle}>Rp. 5000,-</div>
           </div>
         </div>
         <div style={flexItemStyle}>
-        <div style={{ width: '50px', height: '50px', borderRadius: '18px', backgroundColor: '#FDEDF0', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '10px', color:'#EB3B5A', }}>
-            <i className="pi pi-fw pi-home"></i>
+          <div style={{ width: '50px', height: '50px', borderRadius: '18px', backgroundColor: '#FDEDF0', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '10px', color: '#EB3B5A' }}>
+            <i className="pi pi-fw pi-arrow-down-right"></i>
           </div>
-          <div style={{ flexDirection:'row' }}>
+          <div style={{ flexDirection: 'row' }}>
             Pengeluaran
-            <div style={priceStyle}>Rp. 5000</div>
+            <div style={priceStyle}>Rp. 5000,-</div>
           </div>
         </div>
       </div>
