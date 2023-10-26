@@ -8,6 +8,7 @@ import ContentDashboard5 from './ContentDashboard5';
 function App() {
   return (
     <div>
+      <h1>Dashboard</h1>
       <ContentDashboard1 />
       <ContentDashboard2 />
       <ContentDashboard3 />
