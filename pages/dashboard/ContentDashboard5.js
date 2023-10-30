@@ -1,5 +1,5 @@
-import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import React, { useEffect, useState } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 function ContentDashboard5() {
     const containerStyle = {
@@ -23,7 +23,7 @@ function ContentDashboard5() {
 
     const NeracaStyle = {
         flex: '1',
-        minWidth: '200px',
+        minWidth: '250px',
         height: '30%',
         backgroundColor: '#fff',
         color: 'black',
@@ -51,10 +51,28 @@ function ContentDashboard5() {
         { name: 'Dec', sales: 1000 },
     ];
 
+    const [chartWidth, setChartWidth] = useState(700); // Set initial width
+
+    useEffect(() => {
+        function handleResize() {
+            // Update chart width based on the container's width
+            const width = document.getElementById('PembelianChart')?.clientWidth;
+            if (width) {
+                setChartWidth(width);
+            }
+        }
+
+        handleResize(); // Set initial width
+        window.addEventListener('resize', handleResize); // Listen to window resize events
+        return () => {
+            window.removeEventListener('resize', handleResize); // Clean up the event listener
+        };
+    }, []);
+
     return (
         <div>
             <div style={containerStyle}>
-                <div style={{ flexDirection:'row' }}>
+                <div style={{ display: 'flex', flexDirection:'column' }}>
                     <div style={NeracaStyle}>
                         Saldo Keseluruhan
                         <div style={{ color: '#0F7AAE', fontSize: '18px', marginTop: '5px' }}>Rp. 5000,-</div>
@@ -70,19 +88,21 @@ function ContentDashboard5() {
                         <div style={{ color: '#A9A8A8', fontSize: '12px' }}>0% dari Data Keseluruhan</div>
                     </div>
                 </div>
-                <div style={PembelianStyle}>
+                <div style={PembelianStyle} id="PembelianChart">
                     <div style={{ fontSize: '15px', fontWeight: 'bold' }}>
                         Pembelian
                     </div>
-                    <div style={{ alignItems: 'center', marginTop: '5%' }}>
+                    <div style={{ alignItems: 'center', marginTop: '3%', width: '100%', height: 'calc(100% - 40px)' }}>
+                    <ResponsiveContainer width="100%" height="100%">
                         <LineChart width={700} height={320} data={data}>
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-                        <Tooltip />
-                        <Legend />
-                        <Line type="monotone" dataKey="sales" stroke="#8884d8" activeDot={{ r: 8 }} />
+                            <XAxis dataKey="name" />
+                            <YAxis />
+                            <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                            <Tooltip />
+                            <Legend />
+                            <Line type="monotone" dataKey="sales" stroke="#8884d8" activeDot={{ r: 8 }} />
                         </LineChart>
+                    </ResponsiveContainer>
                     </div>
                 </div>
             </div>

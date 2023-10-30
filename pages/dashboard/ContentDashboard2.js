@@ -1,5 +1,6 @@
-import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+// import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 // import 'recharts';
 
 function ContentDashboard2() {
@@ -9,7 +10,7 @@ function ContentDashboard2() {
   };
 
   const PenjualanStyle = {
-    flex: '3', // Width ratio of 3
+    flex: '6', // Width ratio of 3
     minWidth: '200px', // Set a minimum width to prevent excessive narrowing
     height: '400px',
     backgroundColor: '#fff',
@@ -23,7 +24,7 @@ function ContentDashboard2() {
   };
 
   const NeracaStyle = {
-    flex: '1', // Width ratio of 1
+    flex: '2.1', // Width ratio of 1
     minWidth: '200px', // Set a minimum width to prevent excessive narrowing
     height: '400px',
     backgroundColor: '#fff',
@@ -51,23 +52,43 @@ function ContentDashboard2() {
     { name: 'Dec', sales: 1000 },
   ];
 
+  const [chartWidth, setChartWidth] = useState(700); // Set initial width
+
+  useEffect(() => {
+    function handleResize() {
+      // Update chart width based on the container's width
+      const width = document.getElementById('PenjualanChart')?.clientWidth;
+      if (width) {
+        setChartWidth(width);
+      }
+    }
+
+    handleResize(); // Set initial width
+    window.addEventListener('resize', handleResize); // Listen to window resize events
+    return () => {
+      window.removeEventListener('resize', handleResize); // Clean up the event listener
+    };
+  }, []);
+
   return (
     <div>
       <div style={containerStyle}>
-        <div style={PenjualanStyle}>
+        <div style={PenjualanStyle} id="PenjualanChart">
           <div style={{ fontSize: '15px', fontWeight: 'bold' }}>
             Penjualan
           </div>
-          <div style={{ alignItems: 'center', marginTop: '5%' }}>
+          <div style={{ alignItems: 'center', marginTop: '3%', width: '100%', height: 'calc(100% - 40px)' }}>
             {/* <LineChart width="100%" height="100%" data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}> */}
-            <LineChart width={700} height={320} data={data}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="sales" stroke="#8884d8" activeDot={{ r: 8 }} />
-            </LineChart>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={data}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="sales" stroke="#8884d8" activeDot={{ r: 8 }} />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
         </div>
         <div style={NeracaStyle}>
