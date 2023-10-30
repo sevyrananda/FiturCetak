@@ -7,8 +7,7 @@ import React from 'react';
 import ContentDashboard1 from './dashboard/ContentDashboard1' ;
 import ContentDashboard2 from './dashboard/ContentDashboard2';
 import ContentDashboard3 from './dashboard/ContentDashboard3';
-import ContentDashboard4 from './dashboard/ContentDashboard4';
-import ContentDashboard5 from './dashboard/ContentDashboard5';
+import ContentDashboard6 from './dashboard/ContentDashboard6';
 
 export default function Dashboard() {
     // const router = useRouter();
@@ -21,8 +20,7 @@ export default function Dashboard() {
             <ContentDashboard1 />
             <ContentDashboard2 />
             <ContentDashboard3 />
-            {/* <ContentDashboard4 /> */}
-            <ContentDashboard5 />
+            <ContentDashboard6 />
         </div>
     );
 }

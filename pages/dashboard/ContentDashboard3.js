@@ -45,7 +45,7 @@ function ContentDashboard3() {
           <div style={{ borderBottom: '1px solid black', width: '100%', marginTop: '10px', opacity: 0.1 }}></div>
           <div style={chartStyle}>
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data}>
+              <BarChart data={data} style={{ marginLeft:'-4%' }}>
                 <XAxis dataKey="name" />
                 <YAxis />
                 <CartesianGrid strokeDasharray="3 3" />
@@ -63,7 +63,7 @@ function ContentDashboard3() {
           <div style={{ borderBottom: '1px solid black', width: '100%', marginTop: '10px', opacity: 0.1 }}></div>
           <div style={chartStyle}>
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data}>
+              <BarChart data={data} style={{ marginLeft:'-4%' }}>
                 <XAxis dataKey="name" />
                 <YAxis />
                 <CartesianGrid strokeDasharray="3 3" />

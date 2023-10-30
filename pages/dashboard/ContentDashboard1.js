@@ -26,7 +26,7 @@ function ContentDashboard1() {
   const priceStyle = {
     color: 'black',
     fontWeight: 'bold',
-    fontSize: '18px',
+    fontSize: '15px',
   };
 
   return (
@@ -38,7 +38,7 @@ function ContentDashboard1() {
           </div>
           <div style={{ flexDirection: 'row' }}>
             Keuntungan
-            <div style={priceStyle}>Rp. 5000,-</div>
+            <div style={priceStyle}>Rp. 55.000.000,-</div>
           </div>
         </div>
         <div style={flexItemStyle}>
@@ -47,7 +47,7 @@ function ContentDashboard1() {
           </div>
           <div style={{ flexDirection: 'row' }}>
             Penerimaan
-            <div style={priceStyle}>Rp. 5000,-</div>
+            <div style={priceStyle}>Rp. 55.000.000,-</div>
           </div>
         </div>
         <div style={flexItemStyle}>
@@ -56,7 +56,7 @@ function ContentDashboard1() {
           </div>
           <div style={{ flexDirection: 'row' }}>
             Pengeluaran
-            <div style={priceStyle}>Rp. 5000,-</div>
+            <div style={priceStyle}>Rp. 55.000.000,-</div>
           </div>
         </div>
       </div>

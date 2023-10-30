@@ -10,7 +10,7 @@ function ContentDashboard2() {
   };
 
   const PenjualanStyle = {
-    flex: '6', // Width ratio of 3
+    flex: '3', // Width ratio of 3
     minWidth: '200px', // Set a minimum width to prevent excessive narrowing
     height: '400px',
     backgroundColor: '#fff',
@@ -24,7 +24,7 @@ function ContentDashboard2() {
   };
 
   const NeracaStyle = {
-    flex: '2.1', // Width ratio of 1
+    flex: '1', // Width ratio of 1
     minWidth: '200px', // Set a minimum width to prevent excessive narrowing
     height: '400px',
     backgroundColor: '#fff',
@@ -80,7 +80,7 @@ function ContentDashboard2() {
           <div style={{ alignItems: 'center', marginTop: '3%', width: '100%', height: 'calc(100% - 40px)' }}>
             {/* <LineChart width="100%" height="100%" data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}> */}
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={data}>
+              <LineChart data={data} style={{ marginLeft:'-2%' }}>
                 <XAxis dataKey="name" />
                 <YAxis />
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
@@ -99,24 +99,24 @@ function ContentDashboard2() {
           <div style={{ marginTop: '5%', backgroundColor: '#E7F2F7', width: '100%', height: '30%', borderRadius: '30px' }}>
             <div style={{ padding: '25px' }}>
               <i className="pi pi-fw pi-credit-card" style={{ color: '#0F7AAE' }}></i> Asset
-              <div style={{ fontWeight: 'bold', fontSize: '18px', color: '#0F7AAE' }}>
-                Rp. 5000,-
+              <div style={{ fontWeight: 'bold', fontSize: '15px', color: '#0F7AAE' }}>
+                Rp. 55.000.000,-
               </div>
             </div>
           </div>
           <div style={{ marginTop: '5%', backgroundColor: '#FEF8EC', width: '100%', height: '30%', borderRadius: '30px' }}>
             <div style={{ padding: '25px' }}>
               <i className="pi pi-fw pi-bookmark-fill" style={{ color: '#F7B731' }}></i> Kewajiban
-              <div style={{ fontWeight: 'bold', fontSize: '18px', color: '#F7B731' }}>
-                Rp. 5000,-
+              <div style={{ fontWeight: 'bold', fontSize: '15px', color: '#F7B731' }}>
+                Rp. 55.000.000,-
               </div>
             </div>
           </div>
           <div style={{ marginTop: '5%', backgroundColor: '#F3ECF5', width: '100%', height: '30%', borderRadius: '30px' }}>
             <div style={{ padding: '25px' }}>
               <i className="pi pi-fw pi-chart-bar" style={{ color: '#833294' }}></i> Modal
-              <div style={{ fontWeight: 'bold', fontSize: '18px', color: '#833294' }}>
-                Rp. 5000,-
+              <div style={{ fontWeight: 'bold', fontSize: '15px', color: '#833294' }}>
+                Rp. 55.000.000,-
               </div>
             </div>
           </div>
