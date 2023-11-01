@@ -21,6 +21,7 @@ function ContentDashboard1() {
     alignItems: 'center',
     padding: '25px',
     margin: '10px',
+    minWidth: '230px',
   };
 
   const priceStyle = {
