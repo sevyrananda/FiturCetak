@@ -14,6 +14,7 @@ const AppMenu = () => {
             items: [
                 /** Menu */
                 { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/dashboard' },
+                { label: 'Kasir', icon: 'pi pi-fw pi-money-bill', to: '/kasir' },
                 { label: 'CODEBASE 1', icon: 'pi pi-fw pi-star', to: '/_codebase/codebase1' },
                 { label: 'GUDANG', icon: 'pi pi-fw pi-star', to: '/master/stok/gudang' },
                 { label: 'Cetak', icon: 'pi pi-fw pi-star', to: '/cetak' },
