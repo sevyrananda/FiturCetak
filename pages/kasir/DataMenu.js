@@ -85,7 +85,7 @@ function DataMenu() {
         {
             id: 3,
             image: "https://img.freepik.com/free-photo/traditional-nasi-lemak-meal-composition_23-2149056822.jpg?w=1060&t=st=1700704874~exp=1700705474~hmac=ea748d9ec84a3ddd94a84381c4b88b8ccd69b17ad40096497fad2004b9d877ec",
-            name: "Nasi Goreng",
+            name: "Nasi Lemak",
             price: "Rp. 20000,-",
             type: "Cemilan",
             stock: "5",
@@ -103,8 +103,8 @@ function DataMenu() {
         {
             id: 5,
             image: "https://img.freepik.com/premium-photo/nasi-lemak-malay-fragrant-rice-dish-cooked-coconut-milk-pandan-leaf-served-with-various-sid_431906-4547.jpg?w=1060",
-            name: "Nasi Goreng",
-            price: "Rp. 20000,-",
+            name: "Penyetan Ayam",
+            price: "Rp. 2000000,-",
             type: "Makanan",
             stock: "5",
             limit: "3",
@@ -112,7 +112,7 @@ function DataMenu() {
         {
             id: 6,
             image: "https://img.freepik.com/free-photo/ice-falling-brown-drink_1194-1074.jpg?w=740&t=st=1700457859~exp=1700458459~hmac=e6ce8121d3d40c472ff9ccb5eecdf9f9827d2a001998ec09cd643e12e9f6df9d",
-            name: "Es Teh Manis",
+            name: "Es Teh Tawar",
             price: "Rp. 5000,-",
             type: "apa",
             stock: "5",
@@ -130,7 +130,7 @@ function DataMenu() {
         {
             id: 8,
             image: "https://img.freepik.com/free-photo/ice-falling-brown-drink_1194-1074.jpg?w=740&t=st=1700457859~exp=1700458459~hmac=e6ce8121d3d40c472ff9ccb5eecdf9f9827d2a001998ec09cd643e12e9f6df9d",
-            name: "Es Teh Manis",
+            name: "Black Tea Ice",
             price: "Rp. 5000,-",
             type: "Minuman",
             stock: "5",
@@ -318,7 +318,7 @@ function DataMenu() {
                             ))}
 
                             {/* Menampilkan total harga */}
-                            <div style={{ marginTop: '10px', fontSize: '100%', fontWeight: 'bold' }}>
+                            <div style={{ marginTop: '25px', fontSize: '100%', fontWeight: 'bold' }}>
                                 Total: {cartData.reduce((total, item) => total + item.qty * parseFloat(item.price.substring(4)), 0).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
                             </div>
 
