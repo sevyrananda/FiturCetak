@@ -51,10 +51,10 @@ function CartItem({ item, updateQuantity, removeFromCart }) {
                     icon="pi pi-minus"
                     className="p-button-warning p-button-sm"
                     onClick={() => {
-                        if (item.qty > 0) {
+                        if (item.qty > 1) {
                             updateQuantity(item.id, item.qty - 1);
                         }
-                        else if (item.qty === 0) {
+                        else if (item.qty === 1) {
                             removeFromCart(item.id);
                         }
                     }}
