@@ -14,6 +14,7 @@ function DataMenu() {
     const MenuStyle = {
         flex: '3', // Width ratio of 3
         minWidth: '300px', // Set a minimum width to prevent excessive narrowing
+        width: '100%',
         backgroundColor: '#fff',
         color: 'black',
         borderRadius: '8px',
@@ -27,6 +28,7 @@ function DataMenu() {
     const KeranjangStyle = {
         flex: '1', // Width ratio of 1
         minWidth: '300px', // Set a minimum width to prevent excessive narrowing
+        width: '100%',
         backgroundColor: '#fff',
         color: 'black',
         borderRadius: '8px',
@@ -300,14 +302,6 @@ function DataMenu() {
                         </div>
                         <div style={{ borderBottom: '1px solid black', width: '100%', marginTop: '10px', opacity: 0.1 }}></div>
                         <div className="p-field flex-row">
-                            {/* Menampilkan item di dalam keranjang */}
-                            {/* <table>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Qty</th>
-                                </tr>
-                            </table> */}
                             {cartData.map((item) => (
                                 <CartItem
                                     key={item.id}
