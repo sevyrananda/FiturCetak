@@ -14,11 +14,14 @@ function DataMenu() {
 
     const handleNumberClick = (number) => {
         if (number === 'C') {
-            // Clear the value
-            setValue1(0);
+            // Clear the payment value
+            setValue1('0');
+        } else if (number === '00') {
+            // Handle '00' case
+            setValue1((prevValue) => `${prevValue}${number}`);
         } else {
-            // Append the number to the value
-            setValue1((prevValue) => prevValue * 10 + number);
+            // Append the number to the payment value
+            setValue1((prevValue) => `${prevValue}${number}`);
         }
     };
 
