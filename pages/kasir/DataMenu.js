@@ -5,11 +5,22 @@ import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Dialog } from 'primereact/dialog';
 import { InputTextarea } from 'primereact/inputtextarea';
-import { Chips } from 'primereact/chips';
+import { InputNumber } from 'primereact/inputnumber';
 import CartItem from './CartItem'; // Import komponen CartItem
 
 function DataMenu() {
-    const [value, setValue] = useState([]);
+    const [textareaValue, setTextareaValue] = useState('');
+    const [value1, setValue1] = useState(0);
+
+    const handleNumberClick = (number) => {
+        if (number === 'C') {
+            // Clear the value
+            setValue1(0);
+        } else {
+            // Append the number to the value
+            setValue1((prevValue) => prevValue * 10 + number);
+        }
+    };
 
     const [visible, setVisible] = useState(false);
     const footerContent = (
@@ -324,8 +335,8 @@ function DataMenu() {
                                         }, 0)}
                                     </h6>
                                     <div>
-                                        <span className="p-float-label" style={{ marginRight: '5px' }}>
-                                            <InputTextarea id="description" value={value} onChange={(e) => setValue(e.value)} rows={5} cols={30} style={{ width: '750px', height: '150px' }} />
+                                        <span className="p-float-label" style={{ marginRight: '5px', marginTop: '20px' }}>
+                                            <InputTextarea id="description" value={textareaValue} onChange={(e) => setTextareaValue(e.target.value)} rows={5} cols={30} style={{ width: '750px', height: '150px' }} />
                                             <label htmlFor="description">Add note here</label>
                                         </span>
                                     </div>
@@ -334,11 +345,10 @@ function DataMenu() {
                                 {/* card2 */}
                                 <div className="card p-fluid" style={{ flex: '1', marginLeft: '10px', height: '400px' }}>
                                     <span className="p-float-label" style={{ marginRight: '5px' }}>
-                                        <Chips id="number" value={value} onChange={(e) => setValue(e.value)} style={{ height: '80px', fontSize: '20px'}}/>
-                                        <label htmlFor="number" style={{ fontSize: '16px' }}>$ Payment</label>
+                                        <InputNumber inputId="currency-rupiah" value={value1} onValueChange={(e) => setvalue1(e.value)} mode="currency" currency="IDR" locale="id-ID" />
                                     </span>
                                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '5px', marginTop: '10px' }}>
-                                        {[1, 2, 3, 0, 4, 5, 6, '00',7, 8, 9,'C'].map((number) => (
+                                        {[1, 2, 3, 0, 4, 5, 6, '00', 7, 8, 9, 'C'].map((number) => (
                                             <Button key={number} label={number.toString()} onClick={() => handleNumberClick(number)} style={{ marginBottom: '5px' }} />
                                         ))}
                                     </div>
