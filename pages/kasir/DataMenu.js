@@ -9,7 +9,7 @@ import { Chips } from 'primereact/chips';
 import CartItem from './CartItem'; // Import komponen CartItem
 
 function DataMenu() {
-    const [value, setValue] = useState([]); 
+    const [value, setValue] = useState([]);
 
     const [visible, setVisible] = useState(false);
     const footerContent = (
@@ -297,8 +297,9 @@ function DataMenu() {
 
                         {/* Pop Up Checkout */}
                         <Dialog header="Items in Cart" visible={visible} style={{ width: '90vw' }} onHide={() => setVisible(false)} footer={footerContent}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between' }}> {/* card1 */}
-                                <div className="card" style={{ flex: '1' }}>
+                            {/* card1 */}
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div className="card" style={{ flex: '1', height: '400px', overflowY: 'auto' }}>
                                     {cartData.map((item) => {
                                         const priceArray = item.price.split('Rp. ')[1].split(',-');
                                         const cleanedPrice = Number(priceArray[0].replace(/\./g, ''));
@@ -315,7 +316,7 @@ function DataMenu() {
 
                                     <br />
                                     <h6>
-                                        Total Harga Keseluruhan:{' '}
+                                        Total Harga Keseluruhan: Rp.{' '}
                                         {cartData.reduce((total, item) => {
                                             const priceArray = item.price.split('Rp. ')[1].split(',-');
                                             const cleanedPrice = Number(priceArray[0].replace(/\./g, ''));
@@ -323,16 +324,24 @@ function DataMenu() {
                                         }, 0)}
                                     </h6>
                                     <div>
-                                        <span className="p-float-label" style={{ marginRight:'5px' }}>
-                                            <InputTextarea id="description" value={value} onChange={(e) => setValue(e.value)} rows={5} cols={30} />
+                                        <span className="p-float-label" style={{ marginRight: '5px' }}>
+                                            <InputTextarea id="description" value={value} onChange={(e) => setValue(e.value)} rows={5} cols={30} style={{ width: '750px', height: '150px' }} />
                                             <label htmlFor="description">Add note here</label>
                                         </span>
                                     </div>
                                 </div>
-                                
-                                <div className="card p-fluid" style={{ flex: '1', marginLeft: '10px' }}> {/* card2 */}
-                                    <Chips value={value} onChange={(e) => setValue(e.value)} />
-                                    <div>Button angka</div>
+
+                                {/* card2 */}
+                                <div className="card p-fluid" style={{ flex: '1', marginLeft: '10px', height: '400px' }}>
+                                    <span className="p-float-label" style={{ marginRight: '5px' }}>
+                                        <Chips id="number" value={value} onChange={(e) => setValue(e.value)} style={{ height: '80px', fontSize: '20px'}}/>
+                                        <label htmlFor="number" style={{ fontSize: '16px' }}>$ Payment</label>
+                                    </span>
+                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '5px', marginTop: '10px' }}>
+                                        {[1, 2, 3, 0, 4, 5, 6, '00',7, 8, 9,'C'].map((number) => (
+                                            <Button key={number} label={number.toString()} onClick={() => handleNumberClick(number)} style={{ marginBottom: '5px' }} />
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </Dialog>
