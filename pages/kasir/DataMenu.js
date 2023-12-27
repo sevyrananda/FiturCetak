@@ -8,6 +8,8 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { InputNumber } from 'primereact/inputnumber';
 import CartItem from './CartItem'; // Import komponen CartItem
 
+import html2pdf from 'html2pdf.js';
+
 function DataMenu() {
     const [textareaValue, setTextareaValue] = useState('');
     const [value1, setValue1] = useState(null);
@@ -35,6 +37,7 @@ function DataMenu() {
     // const totalHarga = cartData.reduce((total, item) => total + item.qty * parseFloat(item.price.substring(4)), 0).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })
     // const kembalian = value1 - totalHarga;
 
+    // dengan windows print -----------------------------------------------------------------------------------------------------
     const handleClickPrint = () => {
         const printWindow = window.open('', '_blank');
     
@@ -92,13 +95,157 @@ function DataMenu() {
         }
     };
 
+    // windows print tp langsung download -----------------------------------------------------------------------------------------------------
+    const handleClickDownload = () => {
+        // Membuat objek Blob dengan konten HTML
+        const blob = new Blob([generatePrintContent()], { type: 'text/html' });
+    
+        // Membuat elemen tautan (link)
+        const link = document.createElement('a');
+    
+        // Mengatur atribut href dengan objek Blob
+        link.href = URL.createObjectURL(blob);
+    
+        // Mengatur atribut lain untuk tautan
+        link.download = 'pesanan.html';
+        link.target = '_blank';
+    
+        // Menambahkan tautan ke dalam dokumen
+        document.body.appendChild(link);
+    
+        // Memicu klik pada tautan untuk memulai pengunduhan
+        link.click();
+    
+        // Menghapus tautan dari dokumen
+        document.body.removeChild(link);
+    };
+    
+    const generatePrintContent = () => {
+        // Menghasilkan konten HTML untuk pesanan
+        let content = '<html><body>';
+        content += '<div style="font-weight: bold; font-size: 18px; text-align:center">Pesanan</div><hr/>';
+        content += '<div style="border-bottom: 1px solid black; width: 100%; margin-bottom: 8px; opacity: 0.1;"></div>';
+        
+        // Simulasikan data pesanan (gantilah dengan data yang sesuai)
+        // const orderData = [
+        //     { name: 'Produk 1', qty: 2, price: 'Rp. 50.000,-' },
+        //     { name: 'Produk 2', qty: 1, price: 'Rp. 30.000,-' },
+        // ];
+    
+        cartData.forEach((item) => {
+            const priceArray = item.price.split('Rp. ')[1].split(',-');
+            const cleanedPrice = Number(priceArray[0].replace(/\./g, ''));
+
+            content += '<div style="margin-bottom: 10px; display: flex; flex-direction: row; justify-content: space-between;">';
+            content += '<div>';
+            content += `<div style="font-weight: normal; font-size: 14px;">${item.name}</div>`;
+            content += `<div style="font-weight: lighter; font-size: 12px;">${item.qty} x ${item.price}</div>`;
+            content += '</div>';
+            content += `<div style="font-size: 14px;">${calculateSubtotal(item.qty, item.price)}</div>`;
+            content += '</div>';
+        });
+    
+        content += '<div style="font-size: 14px; margin-bottom: 5px; margin-top: 20px; font-weight: bold; display: flex; flex-direction: row; justify-content: space-between;">';
+        content += '<div>Total:</div>';
+        content += `<div>${cartData.reduce((total, item) => total + item.qty * parseFloat(item.price.substring(4)), 0).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</div>`;
+        content += '</div>';
+    
+        content += '<div style="font-size: 14px; margin-bottom: 5px; font-weight: bold; display: flex; flex-direction: row; justify-content: space-between;">';
+        content += '<div>Cash:</div>';
+        content += `<div>${value1.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</div>`;
+        content += '</div>';
+    
+        content += '<div style="font-size: 14px; margin-bottom: 5px; font-weight: bold; display: flex; flex-direction: row; justify-content: space-between;">';
+        content += '<div>Kembali:</div>';
+        content += `<div>${(parseFloat(value1) - cartData.reduce((total, item) => total + item.qty * parseFloat(item.price.substring(4)), 0)).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'})}</div>`;
+        content += '</div>';
+    
+        content += '<div>';
+        content += '<span class="p-float-label" style="font-size: 14px; width: 100%;">';
+        content += '<label for="description">Note:</label><br/>';
+        content += `${textareaValue}`;
+        content += '</span>';
+        content += '</div>';
+    
+        content += '</body></html>';
+        
+        return content;
+    };
+    
+    const calculateSubtotal = (qty, price) => {
+        const cleanedPrice = Number(price.split('Rp. ')[1].split(',-')[0].replace(/\./g, ''));
+        return `Rp. ${qty * cleanedPrice},00`;
+    };
+    
+    const calculateTotal = (orderData) => {
+        return orderData.reduce((total, item) => total + item.qty * parseFloat(item.price.substring(4)), 0);
+    };
+    
+    // Contoh penggunaan:
+    // Ganti `handleClickPrint` dengan `handleClickDownload` pada tombol atau listener acara Anda.
+    
+
+    // tanpa windows print -----------------------------------------------------------------------------------------------------
+    const handleClickPrintPDF = () => {
+        const cartContent = cartData
+            .map((item) => {
+                const priceArray = item.price.split('Rp. ')[1].split(',-');
+                const cleanedPrice = Number(priceArray[0].replace(/\./g, ''));
+    
+                return `
+                    <div style="margin-bottom: 10px; display: flex; flex-direction: row; justify-content: space-between; font-family: 'Times New Roman', Times, serif;">
+                        <div>
+                            <div style="font-weight: normal; font-size: 14px;">${item.name}</div>
+                            <div style="font-weight: lighter; font-size: 12px;">${item.qty} x ${item.price}</div>
+                        </div>
+                        <div style="font-size: 14px;">Rp. ${item.qty * cleanedPrice},00</div>
+                    </div>`;
+            })
+            .join('');
+    
+        const totalHarga = cartData
+            .reduce((total, item) => total + item.qty * parseFloat(item.price.substring(4)), 0)
+            .toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+    
+        const pdfContent = `
+            <div style="font-weight: bold; font-size: 18px; text-align:center; font-family: 'Times New Roman', Times, serif;">Order</div>
+            <hr/>
+            ${cartContent}
+            <div style="font-size: 14px; margin-bottom: 5px; margin-top: 20px; font-weight: bold; display: flex; flex-direction: row; justify-content: space-between; font-family: 'Times New Roman', Times, serif;">
+                <div>Total:</div>
+                <div>${totalHarga}</div>
+            </div>
+            <div style="font-size: 14px; margin-bottom: 5px; font-weight: bold; display: flex; flex-direction: row; justify-content: space-between; font-family: 'Times New Roman', Times, serif;">
+                <div>Cash:</div>
+                <div>${value1.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</div>
+            </div>
+            <div style="font-size: 14px; margin-bottom: 5px; font-weight: bold; display: flex; flex-direction: row; justify-content: space-between; font-family: 'Times New Roman', Times, serif;">
+                <div>Kembali:</div>
+                <div>${(parseFloat(value1) - cartData.reduce((total, item) => total + item.qty * parseFloat(item.price.substring(4)), 0)).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'})}</div>
+            </div>
+        `;
+    
+        const element = document.createElement('div');
+        element.innerHTML = pdfContent;
+    
+        html2pdf(element, {
+            margin: 10,
+            filename: 'pesanan.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            // jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+            jsPDF: { unit: 'mm', format: [5.8, 'auto'], orientation: 'portrait' }, //Set lebar kertas ZPrinter Paper
+        });
+    };
+
     const [visible, setVisible] = useState(false);
     const footerContent = (
         <div>
             <Button label="Kembali" icon="pi pi-times" onClick={() => setVisible(false)} className="p-button-text" />
-            <Button label="Bayar" icon="pi pi-check" onClick={() => setVisible(false)} autoFocus />
+            {/* <Button label="Bayar" icon="pi pi-check" onClick={() => setVisible(false)} autoFocus /> */}
             <Button label="Cetak" icon="pi pi-print" onClick={handleClickPrint} autoFocus />
-            <Button label="Print PDF" icon="pi pi-print" onClick={() => setVisible(false)} autoFocus />
+            <Button label="Langsung Cetak" icon="pi pi-print" onClick={handleClickDownload} autoFocus />
+            {/* <Button label="Print PDF" icon="pi pi-print" onClick={handleClickPrintPDF} autoFocus /> */}
             {/* <Button label="Cetak Slip" icon="pi pi-print" onClick={() => setVisible(false)} autoFocus /> */}
         </div>
     ); // <Dialog/>
